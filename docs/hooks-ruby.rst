@@ -1,198 +1,217 @@
-# Writing Dredd Hooks In Ruby
+.. _hooks-ruby:
 
-[![Build Status](https://travis-ci.org/apiaryio/dredd-hooks-ruby.svg?branch=master)](https://travis-ci.org/apiaryio/dredd-hooks-ruby)
+Writing Dredd Hooks In Ruby
+===========================
 
-[GitHub repository](https://github.com/apiaryio/dredd-hooks-ruby)
+|Build Status|
 
-Ruby hooks are using [Dredd's hooks handler socket interface](hooks-new-language.md). For using Ruby hooks in Dredd you have to have [Dredd already installed](quickstart.md)
+`GitHub repository <https://github.com/apiaryio/dredd-hooks-ruby>`__
 
-## Installation
+Ruby hooks are using :ref:`Dredd’s hooks handler socket interface <hooks-new-language>`. For using Ruby hooks in Dredd you have to have :ref:`Dredd already installed <quickstart>`
 
-```
-$ gem install dredd_hooks
-```
+Installation
+------------
 
-## Usage
+::
 
-```
-$ dredd apiary.apib http://127.0.0.1:3000 --language=ruby --hookfiles=./hooks*.rb
-```
+   $ gem install dredd_hooks
 
-## API Reference
+Usage
+-----
 
-Including module `Dredd::Hooks:Methods` expands current scope with methods
+::
 
-1. `@before_each`, `before_each_validation`, `after_each`
-   - accepts a block as a first argument passing a [Transaction object](data-structures.md#transaction) as a first argument
+   $ dredd apiary.apib http://127.0.0.1:3000 --language=ruby --hookfiles=./hooks*.rb
 
-2. `before`, `before_validation`, `after`
-   - accepts [transaction name](hooks.md#getting-transaction-names) as a first argument
-   - accepts a block as a second argument passing a [Transaction object](data-structures.md#transaction) as a first argument of it
+API Reference
+-------------
 
-3. `before_all`, `after_all`
-   - accepts a block as a first argument passing an Array of [Transaction objects](data-structures.md#transaction) as a first argument
+Including module ``Dredd::Hooks:Methods`` expands current scope with methods
 
+1. ``@before_each``, ``before_each_validation``, ``after_each``
 
-Refer to [Dredd execution lifecycle](how-it-works.md#execution-life-cycle) to find when is each hook function executed.
+   -  accepts a block as a first argument passing a :ref:`Transaction object <transaction>` as a first argument
 
-### Using Ruby API
+2. ``before``, ``before_validation``, ``after``
+
+   -  accepts :ref:`transaction name <getting-transaction-names>` as a first argument
+   -  accepts a block as a second argument passing a :ref:`Transaction object <transaction>` as a first argument of it
+
+3. ``before_all``, ``after_all``
+
+   -  accepts a block as a first argument passing an Array of :ref:`Transaction objects <transaction>` as a first argument
+
+Refer to :ref:`Dredd execution lifecycle <execution-life-cycle>` to find when is each hook function executed.
+
+Using Ruby API
+~~~~~~~~~~~~~~
 
 Example usage of all methods in
 
-```ruby
-include DreddHooks::Methods
+.. code:: ruby
 
-before_all do |transactions|
-  puts 'before all'
-end
+   include DreddHooks::Methods
 
-before_each do |transaction|
-  puts 'before each'
-end
+   before_all do |transactions|
+     puts 'before all'
+   end
 
-before "Machines > Machines collection > Get Machines" do |transaction|
-  puts 'before'
-end
+   before_each do |transaction|
+     puts 'before each'
+   end
 
-before_each_validation do |transaction|
-  puts 'before each validation'
-end
+   before "Machines > Machines collection > Get Machines" do |transaction|
+     puts 'before'
+   end
 
-before_validation "Machines > Machines collection > Get Machines" do |transaction|
-  puts 'before validations'
-end
+   before_each_validation do |transaction|
+     puts 'before each validation'
+   end
 
-after "Machines > Machines collection > Get Machines" do |transaction|
-  puts 'after'
-end
+   before_validation "Machines > Machines collection > Get Machines" do |transaction|
+     puts 'before validations'
+   end
 
-after_each do |transaction|
-  puts 'after_each'
-end
+   after "Machines > Machines collection > Get Machines" do |transaction|
+     puts 'after'
+   end
 
-after_all do |transactions|
-  puts 'after_all'
-end
-```
+   after_each do |transaction|
+     puts 'after_each'
+   end
 
-## Examples
+   after_all do |transactions|
+     puts 'after_all'
+   end
 
-### How to Skip Tests
+Examples
+--------
 
-Any test step can be skipped by setting `skip` property of the `transaction` object to `true`.
+How to Skip Tests
+~~~~~~~~~~~~~~~~~
 
-```ruby
-include DreddHooks::Methods
+Any test step can be skipped by setting ``skip`` property of the ``transaction`` object to ``true``.
 
-before "Machines > Machines collection > Get Machines" do |transaction|
-  transaction['skip'] = true
-end
-```
+.. code:: ruby
 
-### Sharing Data Between Steps in Request Stash
+   include DreddHooks::Methods
+
+   before "Machines > Machines collection > Get Machines" do |transaction|
+     transaction['skip'] = true
+   end
+
+Sharing Data Between Steps in Request Stash
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you want to test some API workflow, you may pass data between test steps using the response stash.
 
-```ruby
-require 'json'
-include DreddHooks::Methods
+.. code:: ruby
 
-response_stash = {}
+   require 'json'
+   include DreddHooks::Methods
 
-after "Machines > Machines collection > Create Machine" do |transaction|
-  # saving HTTP response to the stash
-  response_stash[transaction['name']] = transaction['real']
-do
+   response_stash = {}
 
-before "Machines > Machine > Delete a machine" do |transaction|
-  #reusing data from previous response here
-  parsed_body = JSON.parse response_stash['Machines > Machines collection > Create Machine']
-  machine_id = parsed_body['id']
+   after "Machines > Machines collection > Create Machine" do |transaction|
+     # saving HTTP response to the stash
+     response_stash[transaction['name']] = transaction['real']
+   do
 
-  #replacing id in URL with stashed id from previous response
-  transaction['fullPath'].gsub! '42', machine_id
-end
-```
+   before "Machines > Machine > Delete a machine" do |transaction|
+     #reusing data from previous response here
+     parsed_body = JSON.parse response_stash['Machines > Machines collection > Create Machine']
+     machine_id = parsed_body['id']
 
-### Failing Tests Programmatically
+     #replacing id in URL with stashed id from previous response
+     transaction['fullPath'].gsub! '42', machine_id
+   end
 
-You can fail any step by setting `fail` property on `transaction` object to `true` or any string with descriptive message.
+Failing Tests Programmatically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-```ruby
-include DreddHooks::Methods
+You can fail any step by setting ``fail`` property on ``transaction`` object to ``true`` or any string with descriptive message.
 
-before "Machines > Machines collection > Get Machines" do |transaction|
-  transaction['fail'] = "Some failing message"
-end
-```
+.. code:: ruby
 
-### Modifying Transaction Request Body Prior to Execution
+   include DreddHooks::Methods
 
-```ruby
-require 'json'
-include DreddHooks::Methods
+   before "Machines > Machines collection > Get Machines" do |transaction|
+     transaction['fail'] = "Some failing message"
+   end
 
-before "Machines > Machines collection > Get Machines" do |transaction|
-  # parse request body from API description
-  request_body = JSON.parse transaction['request']['body']
+Modifying Transaction Request Body Prior to Execution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  # modify request body here
-  request_body['someKey'] = 'some new value'
+.. code:: ruby
 
-  # stringify the new body to request
-  transaction['request']['body'] = request_body.to_json
-end
-```
+   require 'json'
+   include DreddHooks::Methods
 
-### Adding or Changing URI Query Parameters to All Requests
+   before "Machines > Machines collection > Get Machines" do |transaction|
+     # parse request body from API description
+     request_body = JSON.parse transaction['request']['body']
 
-```ruby
-include DreddHooks::Methods
+     # modify request body here
+     request_body['someKey'] = 'some new value'
 
-hooks.before_each do |transaction|
+     # stringify the new body to request
+     transaction['request']['body'] = request_body.to_json
+   end
 
-  # add query parameter to each transaction here
-  param_to_add = "api-key=23456"
+Adding or Changing URI Query Parameters to All Requests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  if transaction['fullPath'].include('?')
-    transaction['fullPath'] += "&" + param_to_add
-  else
-    transaction['fullPath'] += "?" + param_to_add
-  end
-end
-```
+.. code:: ruby
 
-### Handling sessions
+   include DreddHooks::Methods
 
-```ruby
-require 'json'
-include DreddHooks::Methods
+   hooks.before_each do |transaction|
 
-stash = {}
+     # add query parameter to each transaction here
+     param_to_add = "api-key=23456"
 
-# hook to retrieve session on a login
-hooks.after 'Auth > /remoteauth/userpass > POST' do |transaction|
-  parsed_body = JSON.parse transaction['real']['body']
-  stash['token'] = parsed_body['sessionId']
-end
+     if transaction['fullPath'].include('?')
+       transaction['fullPath'] += "&" + param_to_add
+     else
+       transaction['fullPath'] += "?" + param_to_add
+     end
+   end
 
-# hook to set the session cookie in all following requests
-hooks.beforeEach do |transaction|
-  unless stash['token'].nil?
-    transaction['request']['headers']['Cookie'] = "id=" + stash['token']
-  end
-end
-```
+Handling sessions
+~~~~~~~~~~~~~~~~~
 
+.. code:: ruby
 
-### Remove trailing newline character for in expected plain text bodies
+   require 'json'
+   include DreddHooks::Methods
 
-```ruby
-include DreddHooks::Methods
+   stash = {}
 
-before_each do |transaction|
-  if transaction['expected']['headers']['Content-Type'] == 'text/plain'
-    transaction['expected']['body'] = transaction['expected']['body'].gsub(/^\s+|\s+$/g, "")
-  end
-end
-```
+   # hook to retrieve session on a login
+   hooks.after 'Auth > /remoteauth/userpass > POST' do |transaction|
+     parsed_body = JSON.parse transaction['real']['body']
+     stash['token'] = parsed_body['sessionId']
+   end
+
+   # hook to set the session cookie in all following requests
+   hooks.beforeEach do |transaction|
+     unless stash['token'].nil?
+       transaction['request']['headers']['Cookie'] = "id=" + stash['token']
+     end
+   end
+
+Remove trailing newline character for in expected plain text bodies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ruby
+
+   include DreddHooks::Methods
+
+   before_each do |transaction|
+     if transaction['expected']['headers']['Content-Type'] == 'text/plain'
+       transaction['expected']['body'] = transaction['expected']['body'].gsub(/^\s+|\s+$/g, "")
+     end
+   end
+
+.. |Build Status| image:: https://travis-ci.org/apiaryio/dredd-hooks-ruby.svg?branch=master
+   :target: https://travis-ci.org/apiaryio/dredd-hooks-ruby

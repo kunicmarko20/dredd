@@ -1,180 +1,197 @@
-# Writing Dredd Hooks In Rust
+.. _hooks-rust:
 
-[![Crates.io](https://img.shields.io/crates/v/dredd-hooks.svg)](https://crates.io/crates/dredd-hooks)
+Writing Dredd Hooks In Rust
+===========================
 
-[GitHub repository](https://github.com/hobofan/dredd-hooks-rust)
+|Crates.io|
 
-Rust hooks are using [Dredd's hooks handler socket interface](hooks-new-language.md). For using Rust hooks in Dredd you have to have [Dredd already installed](quickstart.md). The Rust library is called `dredd-hooks` and the correspondig binary `dredd-hooks-rust`.
+`GitHub repository <https://github.com/hobofan/dredd-hooks-rust>`__
 
-## Installation
+Rust hooks are using :ref:`Dredd’s hooks handler socket interface <hooks-new-language>`. For using Rust hooks in Dredd you have to have :ref:`Dredd already installed <quickstart>`. The Rust library is called ``dredd-hooks`` and the correspondig binary ``dredd-hooks-rust``.
 
-```
-$ cargo install dredd-hooks
-```
+Installation
+------------
 
-## Usage
+::
 
-Using Dredd with Rust is slightly different to other languages, as a binary needs to be compiled for execution. The --hookfiles flags should point to compiled hook binaries.  See below for an example hooks.rs file to get an idea of what the source file behind the Rust binary would look like.
+   $ cargo install dredd-hooks
 
-```
-$ dredd apiary.apib http://127.0.0.1:3000 --server=./rust-web-server-to-test --language=rust --hookfiles=./hook-file-binary
-```
+Usage
+-----
 
-## API Reference
+Using Dredd with Rust is slightly different to other languages, as a binary needs to be compiled for execution. The –hookfiles flags should point to compiled hook binaries. See below for an example hooks.rs file to get an idea of what the source file behind the Rust binary would look like.
 
-In order to get a general idea of how the Rust Hooks work, the main executable from the package `dredd-hooks` is an HTTP Server that Dredd communicates with and an RPC client.  Each hookfile then acts as a corresponding RPC server.  So when Dredd notifies the Hooks server what transaction event is occuring the hooks server will execute all registered hooks on each of the hookfiles RPC servers.
+::
 
-You’ll need to know a few things about the `HooksServer` type in the `dredd-hooks` package.
+   $ dredd apiary.apib http://127.0.0.1:3000 --server=./rust-web-server-to-test --language=rust --hookfiles=./hook-file-binary
 
-1. The `HooksServer` type is how you can define event callbacks such as `beforeEach`, `afterAll`, etc..
+API Reference
+-------------
 
-2. To get a `HooksServer` struct you must do the following;
+In order to get a general idea of how the Rust Hooks work, the main executable from the package ``dredd-hooks`` is an HTTP Server that Dredd communicates with and an RPC client. Each hookfile then acts as a corresponding RPC server. So when Dredd notifies the Hooks server what transaction event is occuring the hooks server will execute all registered hooks on each of the hookfiles RPC servers.
 
-```rust
-extern crate dredd_hooks;
+You’ll need to know a few things about the ``HooksServer`` type in the ``dredd-hooks`` package.
 
-use dredd_hooks::{HooksServer};
+1. The ``HooksServer`` type is how you can define event callbacks such as ``beforeEach``, ``afterAll``, etc..
 
-fn main() {
-    let mut hooks = HooksServer::new();
+2. To get a ``HooksServer`` struct you must do the following;
 
-    // Define all your event callbacks here
+.. code:: rust
 
-    // HooksServer::start_from_env will block and allow the RPC server
-    // to receive messages from the main `dredd-hooks-rust` process.
-    HooksServer::start_from_env(hooks);
-}
-```
+   extern crate dredd_hooks;
 
-3. Callbacks receive a `Transaction` instance, or an array of them.
+   use dredd_hooks::{HooksServer};
 
-### Runner Callback Events
+   fn main() {
+       let mut hooks = HooksServer::new();
 
-The `HooksServer` type has the following callback methods.
+       // Define all your event callbacks here
 
-1. `before_each`, `before_each_validation`, `after_each`
-   - accepts a function as a first argument passing a [Transaction object](data-structures.md#transaction) as a first argument
+       // HooksServer::start_from_env will block and allow the RPC server
+       // to receive messages from the main `dredd-hooks-rust` process.
+       HooksServer::start_from_env(hooks);
+   }
 
-2. `before`, `before_validation`, `after`
-   - accepts [transaction name](hooks.md#getting-transaction-names) as a first argument
-   - accepts a function as a second argument passing a [Transaction object](data-structures.md#transaction) as a first argument of it
+3. Callbacks receive a ``Transaction`` instance, or an array of them.
 
-3. `before_all`, `after_all`
-   - accepts a function as a first argument passing a `Vec` of [Transaction objects](data-structures.md#transaction) as a first argument
+Runner Callback Events
+~~~~~~~~~~~~~~~~~~~~~~
 
-Refer to [Dredd execution lifecycle](how-it-works.md#execution-life-cycle) to find when each hook callback is executed.
+The ``HooksServer`` type has the following callback methods.
 
-### Using the Rust API
+1. ``before_each``, ``before_each_validation``, ``after_each``
+
+   -  accepts a function as a first argument passing a :ref:`Transaction object <transaction>` as a first argument
+
+2. ``before``, ``before_validation``, ``after``
+
+   -  accepts :ref:`transaction name <getting-transaction-names>` as a first argument
+   -  accepts a function as a second argument passing a :ref:`Transaction object <transaction>` as a first argument of it
+
+3. ``before_all``, ``after_all``
+
+   -  accepts a function as a first argument passing a ``Vec`` of :ref:`Transaction objects <transaction>` as a first argument
+
+Refer to :ref:`Dredd execution lifecycle <execution-life-cycle>` to find when each hook callback is executed.
+
+Using the Rust API
+~~~~~~~~~~~~~~~~~~
 
 Example usage of all methods.
 
-```rust
-extern crate dredd_hooks;
+.. code:: rust
 
-use dredd_hooks::{HooksServer};
+   extern crate dredd_hooks;
 
-fn main() {
-    let mut hooks = HooksServer::new();
-    hooks.before("/message > GET", Box::new(move |tr| {
-        println!("before hook handled");
-        tr
-    }));
-    hooks.after("/message > GET", Box::new(move |tr| {
-        println!("after hook handled");
-        tr
-    }));
-    hooks.before_validation("/message > GET", Box::new(move |tr| {
-        println!("before validation hook handled");
-        tr
-    }));
-    hooks.before_all(Box::new(move |tr| {
-        println!("before all hook handled");
-        tr
-    }));
-    hooks.after_all(Box::new(move |tr| {
-        println!("after all hook handled");
-        tr
-    }));
-    hooks.before_each(Box::new(move |tr| {
-        println!("before each hook handled");
-        tr
-    }));
-    hooks.before_each_validation(Box::new(move |tr| {
-        println!("before each validation hook handled");
-        tr
-    }));
-    hooks.after_each(Box::new(move |tr| {
-        println!("after each hook handled");
-        tr
-    }));
-    HooksServer::start_from_env(hooks);
-}
-```
+   use dredd_hooks::{HooksServer};
 
-## Examples
+   fn main() {
+       let mut hooks = HooksServer::new();
+       hooks.before("/message > GET", Box::new(move |tr| {
+           println!("before hook handled");
+           tr
+       }));
+       hooks.after("/message > GET", Box::new(move |tr| {
+           println!("after hook handled");
+           tr
+       }));
+       hooks.before_validation("/message > GET", Box::new(move |tr| {
+           println!("before validation hook handled");
+           tr
+       }));
+       hooks.before_all(Box::new(move |tr| {
+           println!("before all hook handled");
+           tr
+       }));
+       hooks.after_all(Box::new(move |tr| {
+           println!("after all hook handled");
+           tr
+       }));
+       hooks.before_each(Box::new(move |tr| {
+           println!("before each hook handled");
+           tr
+       }));
+       hooks.before_each_validation(Box::new(move |tr| {
+           println!("before each validation hook handled");
+           tr
+       }));
+       hooks.after_each(Box::new(move |tr| {
+           println!("after each hook handled");
+           tr
+       }));
+       HooksServer::start_from_env(hooks);
+   }
 
-### How to Skip Tests
+Examples
+--------
 
-Any test step can be skipped by setting the value of the `skip` field of the `Transaction` instance to `true`.
+How to Skip Tests
+~~~~~~~~~~~~~~~~~
 
-```rust
-extern crate dredd_hooks;
+Any test step can be skipped by setting the value of the ``skip`` field of the ``Transaction`` instance to ``true``.
 
-use dredd_hooks::{HooksServer};
+.. code:: rust
 
-fn main() {
-    let mut hooks = HooksServer::new();
+   extern crate dredd_hooks;
 
-    // Runs only before the "/message > GET" test.
-    hooks.before("/message > GET", Box::new(|mut tr| {
-        // Set the skip flag on this test.
-        tr.insert("skip".to_owned(), true.into());
-        // Hooks must always return the (modified) Transaction(s) that were passed in.
-        tr
-    }));
-    HooksServer::start_from_env(hooks);
-}
-```
+   use dredd_hooks::{HooksServer};
 
-### Failing Tests Programmatically
+   fn main() {
+       let mut hooks = HooksServer::new();
 
-You can fail any step by setting the value of the `fail` field of the `Transaction` instance to `true` or any string with a descriptive message.
+       // Runs only before the "/message > GET" test.
+       hooks.before("/message > GET", Box::new(|mut tr| {
+           // Set the skip flag on this test.
+           tr.insert("skip".to_owned(), true.into());
+           // Hooks must always return the (modified) Transaction(s) that were passed in.
+           tr
+       }));
+       HooksServer::start_from_env(hooks);
+   }
 
-```rust
-extern crate dredd_hooks;
+Failing Tests Programmatically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-use dredd_hooks::{HooksServer};
+You can fail any step by setting the value of the ``fail`` field of the ``Transaction`` instance to ``true`` or any string with a descriptive message.
 
-fn main() {
-    let mut hooks = HooksServer::new();
-    hooks.before("/message > GET", Box::new(|mut tr| {
-        // .into() can be used as an easy way to convert
-        // your value into the desired Json type.
-        tr.insert("fail".to_owned(), "Yay! Failed!".into());
-        tr
-    }));
-    HooksServer::start_from_env(hooks);
-}
-```
+.. code:: rust
 
-### Modifying the Request Body Prior to Execution
+   extern crate dredd_hooks;
 
-```rust
-extern crate dredd_hooks;
+   use dredd_hooks::{HooksServer};
 
-use dredd_hooks::{HooksServer};
+   fn main() {
+       let mut hooks = HooksServer::new();
+       hooks.before("/message > GET", Box::new(|mut tr| {
+           // .into() can be used as an easy way to convert
+           // your value into the desired Json type.
+           tr.insert("fail".to_owned(), "Yay! Failed!".into());
+           tr
+       }));
+       HooksServer::start_from_env(hooks);
+   }
 
-fn main() {
-    let mut hooks = HooksServer::new();
-    hooks.before("/message > GET", Box::new(|mut tr| {
-        // Try to access the "request" key as an object.
-        // (This will panic should the "request" key not be present.)
-        tr["request"].as_object_mut().unwrap()
-            .insert("body".to_owned(), "Hello World!".into());
+Modifying the Request Body Prior to Execution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        tr
-    }));
-    HooksServer::start_from_env(hooks);
-}
+.. code:: rust
 
-```
+   extern crate dredd_hooks;
+
+   use dredd_hooks::{HooksServer};
+
+   fn main() {
+       let mut hooks = HooksServer::new();
+       hooks.before("/message > GET", Box::new(|mut tr| {
+           // Try to access the "request" key as an object.
+           // (This will panic should the "request" key not be present.)
+           tr["request"].as_object_mut().unwrap()
+               .insert("body".to_owned(), "Hello World!".into());
+
+           tr
+       }));
+       HooksServer::start_from_env(hooks);
+   }
+
+.. |Crates.io| image:: https://img.shields.io/crates/v/dredd-hooks.svg
+   :target: https://crates.io/crates/dredd-hooks

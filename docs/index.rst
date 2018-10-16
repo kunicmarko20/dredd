@@ -1,89 +1,99 @@
-# Dredd — HTTP API Testing Framework
+.. _index:
 
-[![npm version](https://badge.fury.io/js/dredd.svg)](https://www.npmjs.com/package/dredd)
-[![Build Status](https://travis-ci.org/apiaryio/dredd.svg?branch=master)](https://travis-ci.org/apiaryio/dredd)
-[![Build Status](https://ci.appveyor.com/api/projects/status/n3ixfxh72qushyr4/branch/master?svg=true)](https://ci.appveyor.com/project/Apiary/dredd/branch/master)
-[![Dependency Status](https://david-dm.org/apiaryio/dredd.svg)](https://david-dm.org/apiaryio/dredd)
-[![devDependency Status](https://david-dm.org/apiaryio/dredd/dev-status.svg)](https://david-dm.org/apiaryio/dredd?type=dev)
-[![Documentation Status](https://readthedocs.org/projects/dredd/badge/?version=latest)](https://dredd.readthedocs.io/en/latest/)
-[![Coverage Status](https://coveralls.io/repos/apiaryio/dredd/badge.svg?branch=master)](https://coveralls.io/github/apiaryio/dredd)
-[![Known Vulnerabilities](https://snyk.io/test/npm/dredd/badge.svg)](https://snyk.io/test/npm/dredd)
+Dredd — HTTP API Testing Framework
+==================================
 
-![Dredd - HTTP API Testing Framework](_images/dredd.png)
+|npm version| |Build Status| |Windows Build Status| |Dependency Status| |devDependency Status| |Documentation Status| |Coverage Status| |Known Vulnerabilities|
 
-> **Dredd is a language-agnostic command-line tool for validating
-API description document against backend implementation of the API.**
+.. figure:: _images/dredd.png
+   :alt: Dredd - HTTP API Testing Framework
 
-Dredd reads your API description and step by step validates whether your API
-implementation replies with responses as they are described in the
-documentation.
+..
 
-## Features
+   **Dredd is a language-agnostic command-line tool for validating API description document against backend implementation of the API.**
 
-### Supported API Description Formats
+Dredd reads your API description and step by step validates whether your API implementation replies with responses as they are described in the documentation.
 
-- [API Blueprint][]
-- [Swagger][]
+Features
+--------
 
-### Supported Hooks Languages
+Supported API Description Formats
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Dredd supports writing [hooks](hooks.md) — a glue code for each test setup and teardown. Following languages are supported:
+-  `API Blueprint <https://apiblueprint.org/>`__
+-  `Swagger <https://swagger.io/>`__
 
-- [Go](hooks-go.md)
-- [Node.js (JavaScript)](hooks-nodejs.md)
-- [Perl](hooks-perl.md)
-- [PHP](hooks-php.md)
-- [Python](hooks-python.md)
-- [Ruby](hooks-ruby.md)
-- [Rust](hooks-rust.md)
-- Didn't find your favorite language? _[Add a new one!](hooks-new-language.md)_
+Supported Hooks Languages
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Supported Systems
+Dredd supports writing :ref:`hooks <hooks>` — a glue code for each test setup and teardown. Following languages are supported:
 
-- Linux, macOS, Windows, ...
-- [Travis CI][], [CircleCI][], [Jenkins][], [AppVeyor][], ...
+-  :ref:`Go <hooks-go>`
+-  :ref:`Node.js (JavaScript) <hooks-nodejs>`
+-  :ref:`Perl <hooks-perl>`
+-  :ref:`PHP <hooks-php>`
+-  :ref:`Python <hooks-python>`
+-  :ref:`Ruby <hooks-ruby>`
+-  :ref:`Rust <hooks-rust>`
+-  Didn’t find your favorite language? :ref:`Add a new one! <hooks-new-language>`
 
-## Contents
+Supported Systems
+~~~~~~~~~~~~~~~~~
 
-- [Installation](installation.md)
-- [Quickstart](quickstart.md)
-- [How It Works](how-it-works.md)
-- [How-To Guides](how-to-guides.md)
-- [Usage: CLI](usage-cli.md)
-- [Usage: JavaScript](usage-js.md)
-- [About Hooks](hooks.md)
-- [Hooks: Go](hooks-go.md)
-- [Hooks: JavaScript (Sandboxed)](hooks-js-sandbox.md)
-- [Hooks: Node.js](hooks-nodejs.md)
-- [Hooks: Perl](hooks-perl.md)
-- [Hooks: PHP](hooks-php.md)
-- [Hooks: Python](hooks-python.md)
-- [Hooks: Ruby](hooks-ruby.md)
-- [Hooks: Rust](hooks-rust.md)
-- [Hooks: Other Languages](hooks-new-language.md)
-- [Data Structures](data-structures.md)
-- [Contributing](contributing.md)
+-  Linux, macOS, Windows, …
+-  `Travis CI <https://travis-ci.org/>`__, `CircleCI <https://circleci.com/>`__, `Jenkins <https://jenkins.io/>`__, `AppVeyor <https://www.appveyor.com/>`__, …
 
-## Useful Links
+Contents
+--------
 
-- [GitHub Repository][]
-- [Bug Tracker][]
-- [Changelog][]
+.. toctree::
+   :maxdepth: 1
 
-## Example Applications
+   installation
+   quickstart
+   how-it-works
+   how-to-guides
+   Usage: CLI <usage-cli>
+   Usage: JavaScript <usage-js>
+   About Hooks <hooks>
+   Hooks: Go <hooks-go>
+   Hooks: JavaScript (Sandboxed) <hooks-js-sandbox>
+   Hooks: Node.js <hooks-nodejs>
+   Hooks: Perl <hooks-perl>
+   Hooks: PHP <hooks-php>
+   Hooks: Python <hooks-python>
+   Hooks: Ruby <hooks-ruby>
+   Hooks: Rust <hooks-rust>
+   Hooks: Other languages <hooks-new-language>
+   data-structures
+   contributing
 
-- [Express.js](https://github.com/apiaryio/dredd-example)
-- [Ruby on Rails](https://gitlab.com/theodorton/dredd-test-rails/)
+Useful Links
+------------
 
+-  `GitHub Repository <https://github.com/apiaryio/dredd>`__
+-  `Bug Tracker <https://github.com/apiaryio/dredd/issues?q=is%3Aopen>`__
+-  `Changelog <https://github.com/apiaryio/dredd/releases>`__
 
-[API Blueprint]: https://apiblueprint.org/
-[Swagger]: https://swagger.io/
+Example Applications
+--------------------
 
-[GitHub Repository]: https://github.com/apiaryio/dredd
-[Bug Tracker]: https://github.com/apiaryio/dredd/issues?q=is%3Aopen
-[Changelog]: https://github.com/apiaryio/dredd/releases
+-  `Express.js <https://github.com/apiaryio/dredd-example>`__
+-  `Ruby on Rails <https://gitlab.com/theodorton/dredd-test-rails/>`__
 
-[Travis CI]: https://travis-ci.org/
-[CircleCI]: https://circleci.com/
-[Jenkins]: https://jenkins.io/
-[AppVeyor]: https://www.appveyor.com/
+.. |npm version| image:: https://badge.fury.io/js/dredd.svg
+   :target: https://www.npmjs.com/package/dredd
+.. |Build Status| image:: https://travis-ci.org/apiaryio/dredd.svg?branch=master
+   :target: https://travis-ci.org/apiaryio/dredd
+.. |Windows Build Status| image:: https://ci.appveyor.com/api/projects/status/n3ixfxh72qushyr4/branch/master?svg=true
+   :target: https://ci.appveyor.com/project/Apiary/dredd/branch/master
+.. |Dependency Status| image:: https://david-dm.org/apiaryio/dredd.svg
+   :target: https://david-dm.org/apiaryio/dredd
+.. |devDependency Status| image:: https://david-dm.org/apiaryio/dredd/dev-status.svg
+   :target: https://david-dm.org/apiaryio/dredd?type=dev
+.. |Documentation Status| image:: https://readthedocs.org/projects/dredd/badge/?version=latest
+   :target: https://dredd.readthedocs.io/en/latest/
+.. |Coverage Status| image:: https://coveralls.io/repos/apiaryio/dredd/badge.svg?branch=master
+   :target: https://coveralls.io/github/apiaryio/dredd
+.. |Known Vulnerabilities| image:: https://snyk.io/test/npm/dredd/badge.svg
+   :target: https://snyk.io/test/npm/dredd

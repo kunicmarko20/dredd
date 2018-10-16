@@ -1,135 +1,140 @@
-# Quickstart
+.. _quickstart:
 
-In following tutorial you can quickly learn how to test a simple HTTP API application with Dredd. The tested application will be very simple backend written in [Express.js][].
+Quickstart
+==========
 
-## Install Dredd
+In following tutorial you can quickly learn how to test a simple HTTP API application with Dredd. The tested application will be very simple backend written in `Express.js <http://expressjs.com/starter/hello-world.html>`__.
 
-```
-$ npm install -g dredd
-```
+Install Dredd
+-------------
 
-If you're not familiar with the Node.js ecosystem or you bump into any issues, follow the [installation guide](installation.md).
+::
 
-## Document Your API
+   $ npm install -g dredd
 
-First, let's design the API we are about to build and test. That means you will need to create an API description file, which will document how your API should look like. Dredd supports two formats of API description documents:
+If you’re not familiar with the Node.js ecosystem or you bump into any issues, follow the :ref:`installation guide <installation>`.
 
-- [API Blueprint][]
-- [Swagger][]
+Document Your API
+-----------------
 
-If you choose API Blueprint, create a file called `api-description.apib` in the root of your project and save it with following content:
+First, let’s design the API we are about to build and test. That means you will need to create an API description file, which will document how your API should look like. Dredd supports two formats of API description documents:
 
-```apiblueprint
-FORMAT: 1A
+-  `API Blueprint <https://apiblueprint.org/>`__
+-  `Swagger <https://swagger.io/>`__
 
-# GET /
-+ Response 200 (application/json; charset=utf-8)
+If you choose API Blueprint, create a file called ``api-description.apib`` in the root of your project and save it with following content:
 
-        {"message": "Hello World!"}
-```
+.. code:: apiblueprint
 
-If you choose Swagger, create a file called `api-description.yml`:
+   FORMAT: 1A
 
-```yaml
-swagger: "2.0"
-info:
-  version: "1.0"
-  title: Example API
-  license:
-    name: MIT
-host: www.example.com
-basePath: /
-schemes:
-  - http
-paths:
-  /:
-    get:
-      produces:
-        - application/json; charset=utf-8
-      responses:
-        200:
-          description: ""
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-            required:
-              - message
-```
+   # GET /
+   + Response 200 (application/json; charset=utf-8)
 
-## Implement Your API
+           {"message": "Hello World!"}
 
-As we mentioned in the beginning, we'll use [Express.js][] to implement the API. Install the framework by `npm`:
+If you choose Swagger, create a file called ``api-description.yml``:
 
-```sh
-$ npm init
-$ npm install express --save
-```
+.. code:: yaml
 
-Now let's code the thing! Create a file called `app.js` with following contents:
+   swagger: "2.0"
+   info:
+     version: "1.0"
+     title: Example API
+     license:
+       name: MIT
+   host: www.example.com
+   basePath: /
+   schemes:
+     - http
+   paths:
+     /:
+       get:
+         produces:
+           - application/json; charset=utf-8
+         responses:
+           200:
+             description: ""
+             schema:
+               type: object
+               properties:
+                 message:
+                   type: string
+               required:
+                 - message
 
-```javascript
-var app = require('express')();
+Implement Your API
+------------------
 
-app.get('/', function(req, res) {
-  res.json({message: 'Hello World!'});
-})
+As we mentioned in the beginning, we’ll use `Express.js <http://expressjs.com/starter/hello-world.html>`__ to implement the API. Install the framework by ``npm``:
 
-app.listen(3000);
-```
+.. code:: sh
 
-## Test Your API
+   $ npm init
+   $ npm install express --save
 
-At this moment, the implementation is ready to be tested. Let's run the server as a background process and let's test it:
+Now let’s code the thing! Create a file called ``app.js`` with following contents:
 
-```sh
-$ node app.js &
-```
+.. code:: javascript
+
+   var app = require('express')();
+
+   app.get('/', function(req, res) {
+     res.json({message: 'Hello World!'});
+   })
+
+   app.listen(3000);
+
+Test Your API
+-------------
+
+At this moment, the implementation is ready to be tested. Let’s run the server as a background process and let’s test it:
+
+.. code:: sh
+
+   $ node app.js &
 
 Finally, let Dredd validate whether your freshly implemented API complies with the description you have:
 
-```sh
-$ dredd api-description.apib http://127.0.0.1:3000  # API Blueprint
-$ dredd api-description.yml http://127.0.0.1:3000  # Swagger
-```
+.. code:: sh
 
-## Configure Dredd
+   $ dredd api-description.apib http://127.0.0.1:3000  # API Blueprint
+   $ dredd api-description.yml http://127.0.0.1:3000  # Swagger
 
-Dredd can be configured by [many CLI options](usage-cli.md). It's recommended to save your Dredd configuration alongside your project, so it's easier to repeatedly execute always the same test run. Use interactive configuration wizard to create `dredd.yml` file in the root of your project:
+Configure Dredd
+---------------
 
-```
-$ dredd init
-? Location of the API description document: api-description.apib
-? Command to start API backend server e.g. (bundle exec rails server)
-? URL of tested API endpoint: http://127.0.0.1:3000
-? Programming language of hooks:
-❯ nodejs
-  python
-  ruby
-  ...
-? Dredd is best served with Continuous Integration. Create CircleCI config for Dredd? Yes
-```
+Dredd can be configured by :ref:`many CLI options <usage-cli>`. It’s recommended to save your Dredd configuration alongside your project, so it’s easier to repeatedly execute always the same test run. Use interactive configuration wizard to create ``dredd.yml`` file in the root of your project:
 
-Now you can start test run just by typing `dredd`!
+::
 
-```
-$ dredd
-```
+   $ dredd init
+   ? Location of the API description document: api-description.apib
+   ? Command to start API backend server e.g. (bundle exec rails server)
+   ? URL of tested API endpoint: http://127.0.0.1:3000
+   ? Programming language of hooks:
+   ❯ nodejs
+     python
+     ruby
+     ...
+   ? Dredd is best served with Continuous Integration. Create CircleCI config for Dredd? Yes
 
-## Use Hooks
+Now you can start test run just by typing ``dredd``!
 
-Dredd's [hooks](hooks.md) enable you to write some glue code in your favorite language to support enhanced scenarios in your API tests. Read the documentation about hooks to learn more on how to write them. Choose your language and install corresponding hook handler library.
+::
 
-## Advanced Examples
+   $ dredd
+
+Use Hooks
+---------
+
+Dredd’s :ref:`hooks <hooks>` enable you to write some glue code in your favorite language to support enhanced scenarios in your API tests. Read the documentation about hooks to learn more on how to write them. Choose your language and install corresponding hook handler library.
+
+Advanced Examples
+-----------------
 
 For more complex example applications, please refer to:
 
-- [Express.js example application](https://github.com/apiaryio/dredd-example)
-- [Ruby on Rails example application](https://github.com/theodorton/dredd-test-rails)
-- [Laravel example application](https://github.com/ddelnano/dredd-hooks-php/wiki/Laravel-Example)
-
-
-[API Blueprint]: https://apiblueprint.org/
-[Swagger]: https://swagger.io/
-[Express.js]: http://expressjs.com/starter/hello-world.html
+-  `Express.js example application <https://github.com/apiaryio/dredd-example>`__
+-  `Ruby on Rails example application <https://github.com/theodorton/dredd-test-rails>`__
+-  `Laravel example application <https://github.com/ddelnano/dredd-hooks-php/wiki/Laravel-Example>`__

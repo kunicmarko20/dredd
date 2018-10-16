@@ -1,200 +1,216 @@
-# Writing Dredd Hooks In PHP
+.. _hooks-php:
 
-[![Build Status](https://travis-ci.org/ddelnano/dredd-hooks-php.svg?branch=master)](https://travis-ci.org/ddelnano/dredd-hooks-php)
+Writing Dredd Hooks In PHP
+==========================
 
-[GitHub repository](https://github.com/ddelnano/dredd-hooks-php)
+|Build Status|
 
-PHP hooks are using [Dredd's hooks handler socket interface](hooks-new-language.md). For using PHP hooks in Dredd you have to have [Dredd already installed](quickstart.md)
+`GitHub repository <https://github.com/ddelnano/dredd-hooks-php>`__
 
-## Installation
+PHP hooks are using :ref:`Dredd’s hooks handler socket interface <hooks-new-language>`. For using PHP hooks in Dredd you have to have :ref:`Dredd already installed <quickstart>`
 
-### Requirements
- - php version >= 5.4
+Installation
+------------
+
+Requirements
+~~~~~~~~~~~~
+
+-  php version >= 5.4
 
 Installing dredd-hooks-php can be easily installed through the package manager, composer.
 
-```
-$ composer require ddelnano/dredd-hooks-php --dev
-```
+::
 
-## Usage
+   $ composer require ddelnano/dredd-hooks-php --dev
 
-```
-$ dredd apiary.apib http://127.0.0.1:3000 --language=vendor/bin/dredd-hooks-php --hookfiles=./hooks*.php
-```
+Usage
+-----
 
-## API Reference
+::
 
-The `Dredd\Hooks` class provides the static methods listed below to create hooks
+   $ dredd apiary.apib http://127.0.0.1:3000 --language=vendor/bin/dredd-hooks-php --hookfiles=./hooks*.php
 
-1. `beforeEach`, `beforeEachValidation`, `afterEach`
-   - accepts a closure as a first argument passing a [Transaction object](data-structures.md#transaction) as a first argument
+API Reference
+-------------
 
-2. `before`, `beforeValidation`, `after`
-   - accepts [transaction name](hooks.md#getting-transaction-names) as a first argument
-   - accepts a block as a second argument passing a [Transaction object](data-structures.md#transaction) as a first argument of it
+The ``Dredd\Hooks`` class provides the static methods listed below to create hooks
 
-3. `beforeAll`, `afterAll`
-   - accepts a block as a first argument passing an Array of [Transaction objects](data-structures.md#transaction) as a first argument
+1. ``beforeEach``, ``beforeEachValidation``, ``afterEach``
 
+   -  accepts a closure as a first argument passing a :ref:`Transaction object <transaction>` as a first argument
 
-Refer to [Dredd execution lifecycle](how-it-works.md#execution-life-cycle) to find when is each hook function executed.
+2. ``before``, ``beforeValidation``, ``after``
 
-### Using PHP API
+   -  accepts :ref:`transaction name <getting-transaction-names>` as a first argument
+   -  accepts a block as a second argument passing a :ref:`Transaction object <transaction>` as a first argument of it
 
-Example usage of all methods.
-**Very Important** The `$transaction` variable passed to the closure **MUST** be a reference.
-Otherwise the `$transaction` variable will be passed by value when the closure is executed
-and the changes will not be reflected.
+3. ``beforeAll``, ``afterAll``
 
-```php
-<?php
+   -  accepts a block as a first argument passing an Array of :ref:`Transaction objects <transaction>` as a first argument
 
-use Dredd\Hooks;
+Refer to :ref:`Dredd execution lifecycle <execution-life-cycle>` to find when is each hook function executed.
 
-Hooks::beforeAll(function(&$transaction) {
+Using PHP API
+~~~~~~~~~~~~~
 
-    echo "before all";
-});
+Example usage of all methods. **Very Important** The ``$transaction`` variable passed to the closure **MUST** be a reference. Otherwise the ``$transaction`` variable will be passed by value when the closure is executed and the changes will not be reflected.
 
-Hooks::beforeEach(function(&$transaction) {
+.. code:: php
 
-    echo "before each";
-});
+   <?php
 
-Hooks::before("Machines > Machines collection > Get Machines", function(&$transaction) {
+   use Dredd\Hooks;
 
-    echo "before";
-});
+   Hooks::beforeAll(function(&$transaction) {
 
-Hooks::beforeEachValidation(function(&$transaction) {
+       echo "before all";
+   });
 
-    echo "before each validation";
-});
+   Hooks::beforeEach(function(&$transaction) {
 
-Hooks::beforeValidation("Machines > Machines collection > Get Machines", function(&$transaction) {
+       echo "before each";
+   });
 
-    echo "before validation";
-});
+   Hooks::before("Machines > Machines collection > Get Machines", function(&$transaction) {
 
+       echo "before";
+   });
 
-Hooks::after("Machines > Machines collection > Get Machines", function(&$transaction) {
+   Hooks::beforeEachValidation(function(&$transaction) {
 
-    echo "after";
-});
+       echo "before each validation";
+   });
 
-Hooks::afterEach(function(&$transaction) {
+   Hooks::beforeValidation("Machines > Machines collection > Get Machines", function(&$transaction) {
 
-    echo "after each";
-});
+       echo "before validation";
+   });
 
-Hooks::afterAll(function(&$transaction) {
 
-    echo "after all";
-});
+   Hooks::after("Machines > Machines collection > Get Machines", function(&$transaction) {
 
-```
+       echo "after";
+   });
 
-## Examples
+   Hooks::afterEach(function(&$transaction) {
 
-In the [dredd-hooks-php repository](https://github.com/ddelnano/dredd-hooks-php/) there is an example laravel application with instructions in the [wiki](https://github.com/ddelnano/dredd-hooks-php/wiki/Laravel-Example)
+       echo "after each";
+   });
 
-### How to Skip Tests
+   Hooks::afterAll(function(&$transaction) {
 
-Any test step can be skipped by setting `skip` property of the `transaction` object to `true`.
+       echo "after all";
+   });
 
-```php
-<?php
+Examples
+--------
 
-use Dredd\Hooks;
+In the `dredd-hooks-php repository <https://github.com/ddelnano/dredd-hooks-php/>`__ there is an example laravel application with instructions in the `wiki <https://github.com/ddelnano/dredd-hooks-php/wiki/Laravel-Example>`__
 
+How to Skip Tests
+~~~~~~~~~~~~~~~~~
 
-Hooks::before("Machines > Machines collection > Get Machines", function(&$transaction) {
+Any test step can be skipped by setting ``skip`` property of the ``transaction`` object to ``true``.
 
-    $transaction->skip = true;
-});
-```
+.. code:: php
 
-### Failing Tests Programmatically
+   <?php
 
-You can fail any step by setting `fail` property on `transaction` object to `true` or any string with descriptive message.
+   use Dredd\Hooks;
 
-```php
-<?php
 
-use Dredd\Hooks;
+   Hooks::before("Machines > Machines collection > Get Machines", function(&$transaction) {
 
+       $transaction->skip = true;
+   });
 
-Hooks::before("Machines > Machines collection > Get Machines", function(&$transaction) {
+Failing Tests Programmatically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    $transaction->fail = true;
-});
-```
+You can fail any step by setting ``fail`` property on ``transaction`` object to ``true`` or any string with descriptive message.
 
-### Modifying Transaction Request Body Prior to Execution
+.. code:: php
 
-```php
-<?php
+   <?php
 
-use Dredd\Hooks;
+   use Dredd\Hooks;
 
-Hooks::before("Machines > Machines collection > Get Machines", function(&$transaction) {
 
-    $requestBody = $transaction->request->body;
+   Hooks::before("Machines > Machines collection > Get Machines", function(&$transaction) {
 
-    $requestBody['someKey'] = 'new value';
+       $transaction->fail = true;
+   });
 
-    $transaction->request->body = json_encode($requestBody);
-});
-```
+Modifying Transaction Request Body Prior to Execution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Adding or Changing URI Query Parameters to All Requests
+.. code:: php
 
-```php
-<?php
+   <?php
 
-use Dredd\Hooks;
+   use Dredd\Hooks;
 
+   Hooks::before("Machines > Machines collection > Get Machines", function(&$transaction) {
 
-Hooks::beforeEach(function(&$transaction) {
+       $requestBody = $transaction->request->body;
 
-    // add query parameter to each transaction here
+       $requestBody['someKey'] = 'new value';
 
-    $paramToAdd = 'api-key=23456';
+       $transaction->request->body = json_encode($requestBody);
+   });
 
-    if (strpos($transaction->fullPath, "?") {
+Adding or Changing URI Query Parameters to All Requests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        $transaction->fullPath .= "&{$paramToAdd}";
-    }
+.. code:: php
 
-    else {
+   <?php
 
-        $transaction->fullPath .= "?{$paramToAdd}";
-    }
-});
-```
+   use Dredd\Hooks;
 
-### Handling sessions
 
-```php
-<?php
+   Hooks::beforeEach(function(&$transaction) {
 
-use Dredd\Hooks;
+       // add query parameter to each transaction here
 
-$stash = [];
+       $paramToAdd = 'api-key=23456';
 
-Hooks::after("Auth > /remoteauto/userpass", function(&$transaction) use (&$stash) {
+       if (strpos($transaction->fullPath, "?") {
 
-    $parsedBody = json_decode($transaction->real->body);
+           $transaction->fullPath .= "&{$paramToAdd}";
+       }
 
-    $stash['token'] = $parseBody->sessionId;
-});
+       else {
 
-Hooks::beforeEach(function(&$transaction) use (&$stash) {
+           $transaction->fullPath .= "?{$paramToAdd}";
+       }
+   });
 
-    if ($transaction->token) {
+Handling sessions
+~~~~~~~~~~~~~~~~~
 
-        $transaction->request->headers->Cookie = "id={$stash['token']}s";
-    }
-});
-```
+.. code:: php
+
+   <?php
+
+   use Dredd\Hooks;
+
+   $stash = [];
+
+   Hooks::after("Auth > /remoteauto/userpass", function(&$transaction) use (&$stash) {
+
+       $parsedBody = json_decode($transaction->real->body);
+
+       $stash['token'] = $parseBody->sessionId;
+   });
+
+   Hooks::beforeEach(function(&$transaction) use (&$stash) {
+
+       if ($transaction->token) {
+
+           $transaction->request->headers->Cookie = "id={$stash['token']}s";
+       }
+   });
+
+.. |Build Status| image:: https://travis-ci.org/ddelnano/dredd-hooks-php.svg?branch=master
+   :target: https://travis-ci.org/ddelnano/dredd-hooks-php

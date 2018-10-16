@@ -1,1 +1,1 @@
-../.github/CONTRIBUTING.md
+../.github/CONTRIBUTING.rst
