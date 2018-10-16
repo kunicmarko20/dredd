@@ -22,7 +22,7 @@ To solve the situation, it’s recommended to isolate the deletion test by :ref:
 API Blueprint
 ^^^^^^^^^^^^^
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    FORMAT: 1A
 
@@ -58,7 +58,7 @@ To have an idea where we can hook our arbitrary code, we should first ask Dredd 
 
 Now we can create a ``hooks.js`` file. The file will contain setup and teardown of the database fixture:
 
-.. code:: javascript
+.. code-block:: javascript
 
    hooks = require('hooks');
    db = require('./src/db');
@@ -82,7 +82,7 @@ Now we can create a ``hooks.js`` file. The file will contain setup and teardown 
 Swagger
 ^^^^^^^
 
-.. code:: yaml
+.. code-block:: yaml
 
    swagger: "2.0"
    info:
@@ -140,7 +140,7 @@ To have an idea where we can hook our arbitrary code, we should first ask Dredd 
 
 Now we can create a ``hooks.js`` file. The file will contain setup and teardown of the database fixture:
 
-.. code:: javascript
+.. code-block:: javascript
 
    hooks = require('hooks');
    db = require('./src/db');
@@ -177,7 +177,7 @@ API Blueprint Example
 
 Imagine we have a simple workflow described:
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    FORMAT: 1A
 
@@ -228,7 +228,7 @@ To have an idea where we can hook our arbitrary code, we should first ask Dredd 
 
 Now we can create a ``hooks.js`` file. The code of the file will use global ``stash`` variable to share data between requests:
 
-.. code:: javascript
+.. code-block:: javascript
 
    hooks = require('hooks');
    db = require('./src/db');
@@ -263,7 +263,7 @@ Swagger Example
 
 Imagine we have a simple workflow described:
 
-.. code:: yaml
+.. code-block:: yaml
 
    swagger: "2.0"
    info:
@@ -357,7 +357,7 @@ To have an idea where we can hook our arbitrary code, we should first ask Dredd 
 
 Now we can create a ``hooks.js`` file. The code of the file will use global ``stash`` variable to share data between requests:
 
-.. code:: javascript
+.. code-block:: javascript
 
    hooks = require('hooks');
    db = require('./src/db');
@@ -401,7 +401,7 @@ Avoiding Additional Properties
 
 If you describe a JSON body which has attributes ``name`` and ``size``, the following payload will be considered as correct:
 
-.. code:: json
+.. code-block:: json
 
    {"name": "Sparta", "size": 300, "luck": false}
 
@@ -415,7 +415,7 @@ Requiring Properties
 
 If you describe a JSON body which has attributes ``name`` and ``size``, the following payload will be considered as correct:
 
-.. code:: json
+.. code-block:: json
 
    {"name": "Sparta"}
 
@@ -429,7 +429,7 @@ Validating Structure of Array Items
 
 If you describe an array of items, where each of the items should have a ``name`` property, the following payload will be considered as correct:
 
-.. code:: json
+.. code-block:: json
 
    [{"name": "Sparta"}, {"title": "Athens"}, "Thebes"]
 
@@ -443,7 +443,7 @@ Validating Specific Values
 
 If you describe a JSON body which has attributes ``name`` and ``size``, the following payload will be considered as correct:
 
-.. code:: json
+.. code-block:: json
 
    {"name": "Sparta", "size": 42}
 
@@ -529,22 +529,22 @@ Most of the authentication schemes use HTTP header for carrying the authenticati
 Sending Multipart Requests
 --------------------------
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    :[API Blueprint example](../test/fixtures/request/multipart-form-data.apib)
 
-.. code:: yaml
+.. code-block:: yaml
 
    :[Swagger example](../test/fixtures/request/multipart-form-data.yaml)
 
 Sending Form Data
 -----------------
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    :[API Blueprint example](../test/fixtures/request/application-x-www-form-urlencoded.apib)
 
-.. code:: yaml
+.. code-block:: yaml
 
    :[Swagger example](../test/fixtures/request/application-x-www-form-urlencoded.yaml)
 
@@ -559,14 +559,14 @@ Binary Request Body
 API Blueprint
 ^^^^^^^^^^^^^
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    :[API Blueprint example](../test/fixtures/request/image-png.apib)
 
 Swagger
 ^^^^^^^
 
-.. code:: yaml
+.. code-block:: yaml
 
    :[Swagger example](../test/fixtures/request/image-png.yaml)
 
@@ -575,7 +575,7 @@ Hooks
 
 In hooks, you can populate the request body with real binary data. The data must be in a form of a `Base64-encoded <https://en.wikipedia.org/wiki/Base64>`__ string.
 
-.. code:: javascript
+.. code-block:: javascript
 
    :[Hooks example](../test/fixtures/request/image-png-hooks.js)
 
@@ -585,14 +585,14 @@ Binary Response Body
 API Blueprint
 ^^^^^^^^^^^^^
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    :[API Blueprint example](../test/fixtures/response/binary.apib)
 
 Swagger
 ^^^^^^^
 
-.. code:: yaml
+.. code-block:: yaml
 
    :[Swagger example](../test/fixtures/response/binary.yaml)
 
@@ -605,13 +605,13 @@ Hooks
 
 In hooks, you can either assert the body:
 
-.. code:: javascript
+.. code-block:: javascript
 
    :[Hooks example](../test/fixtures/response/binary-assert-body-hooks.js)
 
 Or you can ignore it:
 
-.. code:: javascript
+.. code-block:: javascript
 
    :[Hooks example](../test/fixtures/response/binary-ignore-body-hooks.js)
 
@@ -625,7 +625,7 @@ API Blueprint
 
 To test multiple requests and responses within one action in Dredd, you need to cluster them into pairs:
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    FORMAT: 1A
 
@@ -672,7 +672,7 @@ Swagger
 
 When using `Swagger <https://swagger.io/>`__ format, by default Dredd tests only responses with ``2xx`` status codes. Responses with other codes are marked as *skipped* and can be activated in :ref:`hooks <hooks>`:
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
 
@@ -741,7 +741,7 @@ While example values are natural part of the API Blueprint format, the Swagger s
 
 However, Dredd needs to know what values to use when testing described API, so it supports ``x-example`` `vendor extension property <https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#user-content-vendorExtensions>`__ to overcome the Swagger limitation:
 
-.. code:: yaml
+.. code-block:: yaml
 
    ...
    paths:

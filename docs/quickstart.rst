@@ -24,7 +24,7 @@ First, let’s design the API we are about to build and test. That means you wil
 
 If you choose API Blueprint, create a file called ``api-description.apib`` in the root of your project and save it with following content:
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    FORMAT: 1A
 
@@ -35,7 +35,7 @@ If you choose API Blueprint, create a file called ``api-description.apib`` in th
 
 If you choose Swagger, create a file called ``api-description.yml``:
 
-.. code:: yaml
+.. code-block:: yaml
 
    swagger: "2.0"
    info:
@@ -68,14 +68,14 @@ Implement Your API
 
 As we mentioned in the beginning, we’ll use `Express.js <http://expressjs.com/starter/hello-world.html>`__ to implement the API. Install the framework by ``npm``:
 
-.. code:: sh
+.. code-block:: shell
 
    $ npm init
    $ npm install express --save
 
 Now let’s code the thing! Create a file called ``app.js`` with following contents:
 
-.. code:: javascript
+.. code-block:: javascript
 
    var app = require('express')();
 
@@ -90,13 +90,13 @@ Test Your API
 
 At this moment, the implementation is ready to be tested. Let’s run the server as a background process and let’s test it:
 
-.. code:: sh
+.. code-block:: shell
 
    $ node app.js &
 
 Finally, let Dredd validate whether your freshly implemented API complies with the description you have:
 
-.. code:: sh
+.. code-block:: shell
 
    $ dredd api-description.apib http://127.0.0.1:3000  # API Blueprint
    $ dredd api-description.yml http://127.0.0.1:3000  # Swagger

@@ -55,7 +55,7 @@ Using PHP API
 
 Example usage of all methods. **Very Important** The ``$transaction`` variable passed to the closure **MUST** be a reference. Otherwise the ``$transaction`` variable will be passed by value when the closure is executed and the changes will not be reflected.
 
-.. code:: php
+.. code-block:: php
 
    <?php
 
@@ -112,7 +112,7 @@ How to Skip Tests
 
 Any test step can be skipped by setting ``skip`` property of the ``transaction`` object to ``true``.
 
-.. code:: php
+.. code-block:: php
 
    <?php
 
@@ -129,7 +129,7 @@ Failing Tests Programmatically
 
 You can fail any step by setting ``fail`` property on ``transaction`` object to ``true`` or any string with descriptive message.
 
-.. code:: php
+.. code-block:: php
 
    <?php
 
@@ -144,7 +144,7 @@ You can fail any step by setting ``fail`` property on ``transaction`` object to 
 Modifying Transaction Request Body Prior to Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: php
+.. code-block:: php
 
    <?php
 
@@ -162,7 +162,7 @@ Modifying Transaction Request Body Prior to Execution
 Adding or Changing URI Query Parameters to All Requests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: php
+.. code-block:: php
 
    <?php
 
@@ -189,7 +189,7 @@ Adding or Changing URI Query Parameters to All Requests
 Handling sessions
 ~~~~~~~~~~~~~~~~~
 
-.. code:: php
+.. code-block:: php
 
    <?php
 

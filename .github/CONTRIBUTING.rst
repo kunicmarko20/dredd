@@ -99,7 +99,7 @@ Forcing the JavaScript version
 
 The ``--no-optional`` option forces the JavaScript version of Drafter and avoids any compilation attempts when installing Dredd:
 
-.. code:: sh
+.. code-block:: shell
 
    $ npm install -g dredd --no-optional
 
@@ -184,7 +184,7 @@ Installation and Development
 2.  `Get Python 3 <https://www.python.org/downloads/>`__. On macOS, run ``brew install python3``. `ReadTheDocs <https://readthedocs.org/>`__ build the docs with Python 3.5, so make sure you have that or higher.
 3.  Create a `virtual environment <https://docs.python.org/3/library/venv.html>`__ and activate it:
 
-   .. code:: sh
+   .. code-block:: shell
 
       python3 -m venv ./venv
       . ./env/bin/activate

@@ -5,14 +5,14 @@ Using Dredd as a JavaScript Library
 
 Dredd can be used directly from your JavaScript code. First, import and configure Dredd:
 
-.. code:: javascript
+.. code-block:: javascript
 
    var Dredd = require('dredd');
    var dredd = new Dredd(configuration);
 
 Then you need to run the Dredd testing:
 
-.. code:: javascript
+.. code-block:: javascript
 
    dredd.run(function (err, stats) {
      // err is present if anything went wrong
@@ -28,7 +28,7 @@ Configuration Object for Dredd Class
 
 Let’s have a look at an example configuration first. (Please also see the `options source <https://github.com/apiaryio/dredd/blob/master/src/options.json>`__ to read detailed information about the ``options`` attributes).
 
-.. code:: javascript
+.. code-block:: javascript
 
    {
      server: 'http://127.0.0.1:3000/api', // your URL to API endpoint the tests will run against
@@ -102,7 +102,7 @@ hooksData (object)
 
 Load hooks file code from string. Must be used together with sandboxed mode.
 
-.. code:: javascript
+.. code-block:: javascript
 
    {
      'data': {

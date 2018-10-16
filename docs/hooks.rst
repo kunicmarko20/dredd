@@ -39,7 +39,7 @@ To use a hook file with Dredd, use the ``--hookfiles`` flag in the command line.
 
 Example:
 
-.. code:: sh
+.. code-block:: shell
 
    $ dredd single-get.apib http://machines.apiary.io --hookfiles=*_hooks.*
 
@@ -54,7 +54,7 @@ In order to retrieve transaction names please run Dredd with the ``--names`` arg
 
 For example, given an API Blueprint file ``api-description.apib`` as following:
 
-.. code:: apiblueprint
+.. code-block:: apiblueprint
 
    FORMAT: 1A
 
@@ -72,7 +72,7 @@ For example, given an API Blueprint file ``api-description.apib`` as following:
 
 Run this command to retrieve all transaction names:
 
-.. code:: sh
+.. code-block:: shell
 
    $ dredd single-get.apib http://machines.apiary.io --names
    info: Machines > Machines collection > Get Machines

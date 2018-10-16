@@ -24,7 +24,7 @@ API Reference
 Sync API
 ~~~~~~~~
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
 
@@ -65,7 +65,7 @@ Async API
 
 When the callback is used in the hook function, callbacks can handle asynchronous function calls.
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
 
@@ -117,7 +117,7 @@ How to Skip Tests
 
 Any test step can be skipped by setting ``skip`` property of the ``transaction`` object to ``true``.
 
-.. code:: javascript
+.. code-block:: javascript
 
    var before = require('hooks').before;
 
@@ -132,7 +132,7 @@ Sharing Data Between Steps in Request Stash
 
 You may pass data between test steps using the response stash.
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
    var before = hooks.before;
@@ -161,7 +161,7 @@ Failing Tests Programmatically
 
 You can fail any step by setting ``fail`` property on ``transaction`` object to ``true`` or any string with descriptive message.
 
-.. code:: javascript
+.. code-block:: javascript
 
    var before = require('hooks').before;
 
@@ -176,7 +176,7 @@ Using Chai Assertions
 
 Inside hook files, you can require `Chai <http://www.chaijs.com/>`__ and use its ``assert``, ``should`` or ``expect`` interface in hooks and write your custom expectations. Dredd catches Chai’s expectation error in hooks and makes transaction to fail.
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
    var before = hooks.before;
@@ -191,7 +191,7 @@ Inside hook files, you can require `Chai <http://www.chaijs.com/>`__ and use its
 Modifying Transaction Request Body Prior to Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
    var before = hooks.before;
@@ -212,7 +212,7 @@ Modifying Multipart Transaction Request Body Prior to Execution
 
 Dependencies: - `multi-part <https://www.npmjs.com/package/multi-part>`__ - `stream-to-string <https://www.npmjs.com/package/stream-to-string>`__
 
-.. code:: javascript
+.. code-block:: javascript
 
    const hooks = require('hooks');
    const fs = require('fs');
@@ -233,7 +233,7 @@ Dependencies: - `multi-part <https://www.npmjs.com/package/multi-part>`__ - `str
 Adding or Changing URI Query Parameters to All Requests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
 
@@ -250,7 +250,7 @@ Adding or Changing URI Query Parameters to All Requests
 Handling sessions
 ~~~~~~~~~~~~~~~~~
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
    var stash = {};
@@ -270,7 +270,7 @@ Handling sessions
 Remove trailing newline character in expected *plain text* bodies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: javascript
+.. code-block:: javascript
 
    var hooks = require('hooks');
 

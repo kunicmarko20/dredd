@@ -36,7 +36,7 @@ You’ll need to know a few things about the ``Server`` type in the hooks packag
 
 2. To get a ``hooks.Server`` struct you must do the following
 
-.. code:: go
+.. code-block:: go
 
    package main
 
@@ -87,7 +87,7 @@ Using the Go API
 
 Example usage of all methods.
 
-.. code:: go
+.. code-block:: go
 
    package main
 
@@ -137,7 +137,7 @@ How to Skip Tests
 
 Any test step can be skipped by setting the ``Skip`` property of the ``Transaction`` instance to ``true``.
 
-.. code:: go
+.. code-block:: go
 
    package main
 
@@ -163,7 +163,7 @@ Failing Tests Programmatically
 
 You can fail any step by setting the ``Fail`` field of the ``Transaction`` instance to ``true`` or any string with a descriptive message.
 
-.. code:: go
+.. code-block:: go
 
    package main
 
@@ -190,7 +190,7 @@ You can fail any step by setting the ``Fail`` field of the ``Transaction`` insta
 Modifying the Request Body Prior to Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: go
+.. code-block:: go
 
    package main
 

@@ -48,7 +48,7 @@ Using Perl API
 
 Example usage of all methods in
 
-.. code:: perl
+.. code-block:: perl
 
    use Dredd::Hooks::Methods;
 
@@ -92,7 +92,7 @@ How to Skip Tests
 
 Any test step can be skipped by setting ``skip`` property of the ``transaction`` object to ``true``.
 
-.. code:: perl
+.. code-block:: perl
 
    use Dredd::Hooks::Methods;
    use Types::Serialiser;
@@ -108,7 +108,7 @@ Sharing Data Between Steps in Request Stash
 
 If you want to test some API workflow, you may pass data between test steps using the response stash.
 
-.. code:: perl
+.. code-block:: perl
 
    use JSON;
    use Dredd::Hooks::Methods;
@@ -138,7 +138,7 @@ Failing Tests Programmatically
 
 You can fail any step by setting ``fail`` property on ``transaction`` object to ``true`` or any string with descriptive message.
 
-.. code:: perl
+.. code-block:: perl
 
    use Dredd::Hooks::Methods;
 
@@ -150,7 +150,7 @@ You can fail any step by setting ``fail`` property on ``transaction`` object to 
 Modifying Transaction Request Body Prior to Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: perl
+.. code-block:: perl
 
    use JSON;
    use Dredd::Hooks::Methods;
@@ -171,7 +171,7 @@ Modifying Transaction Request Body Prior to Execution
 Adding or Changing URI Query Parameters to All Requests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: perl
+.. code-block:: perl
 
    use Dredd::Hooks::Methods;
 
@@ -190,7 +190,7 @@ Adding or Changing URI Query Parameters to All Requests
 Handling sessions
 ~~~~~~~~~~~~~~~~~
 
-.. code:: perl
+.. code-block:: perl
 
    use JSON;
    use Dredd::Hooks::Methods;
@@ -217,7 +217,7 @@ Handling sessions
 Remove trailing newline character in expected *plain text* bodies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: perl
+.. code-block:: perl
 
    use Dredd::Hooks::Methods;
 

@@ -64,13 +64,13 @@ Why Am I Seeing Network Errors?
 
 In a restricted network (VPN, firewall, proxy) you can see errors similar to the following ones:
 
-.. code:: text
+.. code-block:: text
 
    npmERR! Cannot read property 'path' of null
    npmERR!code ECONNRESET
    npmERR!network socket hang up
 
-.. code:: text
+.. code-block:: text
 
    Error: Command failed: git config --get remote.origin.url
    ssh: connect to host github.com port 22: Operation timed out
@@ -78,7 +78,7 @@ In a restricted network (VPN, firewall, proxy) you can see errors similar to the
 
 To solve these issues, you need to set your proxy settings for both ``npm`` and ``git``:
 
-.. code:: sh
+.. code-block:: shell
 
    $ npm config set proxy "http://proxy.company.com:8080"
    $ npm config set https-proxy "https://proxy.company.com:8080"

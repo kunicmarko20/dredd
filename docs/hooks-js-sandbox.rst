@@ -15,7 +15,7 @@ Dredd JS API Option
 
 Sandbox mode can be enabled in Dredd JavaScript API
 
-.. code:: javascript
+.. code-block:: javascript
 
    var Dredd = require('dredd');
    var configuration = {
@@ -68,7 +68,7 @@ The Sandbox mode can be used for running untrusted hook code. It can be activate
 Request Stash in Sandbox Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: javascript
+.. code-block:: javascript
 
    after('First action', function (transaction) {
      stash['id'] = JSON.parse(transaction.real.response);
@@ -87,7 +87,7 @@ When **sandboxed**, hook function **context is not shared** between even the sam
 
 Note: **This is wrong**. It throws an exception.
 
-.. code:: javascript
+.. code-block:: javascript
 
    var myObject = {};
 

@@ -48,7 +48,7 @@ Using Python API
 
 Example usage of all methods in
 
-.. code:: python
+.. code-block:: python
 
    import dredd_hooks as hooks
 
@@ -94,7 +94,7 @@ How to Skip Tests
 
 Any test step can be skipped by setting ``skip`` property of the ``transaction`` object to ``true``.
 
-.. code:: python
+.. code-block:: python
 
    import dredd_hooks as hooks
 
@@ -107,7 +107,7 @@ Sharing Data Between Steps in Request Stash
 
 If you want to test some API workflow, you may pass data between test steps using the response stash.
 
-.. code:: python
+.. code-block:: python
 
    import json
    import dredd_hooks as hooks
@@ -132,7 +132,7 @@ Failing Tests Programmatically
 
 You can fail any step by setting ``fail`` property on ``transaction`` object to ``true`` or any string with descriptive message.
 
-.. code:: python
+.. code-block:: python
 
    import dredd_hooks as hooks
 
@@ -143,7 +143,7 @@ You can fail any step by setting ``fail`` property on ``transaction`` object to 
 Modifying Transaction Request Body Prior to Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: python
+.. code-block:: python
 
    import json
    import dredd_hooks as hooks
@@ -162,7 +162,7 @@ Modifying Transaction Request Body Prior to Execution
 Adding or Changing URI Query Parameters to All Requests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: python
+.. code-block:: python
 
    import dredd_hooks as hooks
 
@@ -179,7 +179,7 @@ Adding or Changing URI Query Parameters to All Requests
 Handling sessions
 ~~~~~~~~~~~~~~~~~
 
-.. code:: python
+.. code-block:: python
 
    import json
    import dredd_hooks as hooks
@@ -201,7 +201,7 @@ Handling sessions
 Remove trailing newline character in expected *plain text* bodies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: python
+.. code-block:: python
 
    import dredd_hooks as hooks
 

@@ -36,7 +36,7 @@ You’ll need to know a few things about the ``HooksServer`` type in the ``dredd
 
 2. To get a ``HooksServer`` struct you must do the following;
 
-.. code:: rust
+.. code-block:: rust
 
    extern crate dredd_hooks;
 
@@ -79,7 +79,7 @@ Using the Rust API
 
 Example usage of all methods.
 
-.. code:: rust
+.. code-block:: rust
 
    extern crate dredd_hooks;
 
@@ -130,7 +130,7 @@ How to Skip Tests
 
 Any test step can be skipped by setting the value of the ``skip`` field of the ``Transaction`` instance to ``true``.
 
-.. code:: rust
+.. code-block:: rust
 
    extern crate dredd_hooks;
 
@@ -154,7 +154,7 @@ Failing Tests Programmatically
 
 You can fail any step by setting the value of the ``fail`` field of the ``Transaction`` instance to ``true`` or any string with a descriptive message.
 
-.. code:: rust
+.. code-block:: rust
 
    extern crate dredd_hooks;
 
@@ -174,7 +174,7 @@ You can fail any step by setting the value of the ``fail`` field of the ``Transa
 Modifying the Request Body Prior to Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: rust
+.. code-block:: rust
 
    extern crate dredd_hooks;
 

@@ -48,7 +48,7 @@ Using Ruby API
 
 Example usage of all methods in
 
-.. code:: ruby
+.. code-block:: ruby
 
    include DreddHooks::Methods
 
@@ -92,7 +92,7 @@ How to Skip Tests
 
 Any test step can be skipped by setting ``skip`` property of the ``transaction`` object to ``true``.
 
-.. code:: ruby
+.. code-block:: ruby
 
    include DreddHooks::Methods
 
@@ -105,7 +105,7 @@ Sharing Data Between Steps in Request Stash
 
 If you want to test some API workflow, you may pass data between test steps using the response stash.
 
-.. code:: ruby
+.. code-block:: ruby
 
    require 'json'
    include DreddHooks::Methods
@@ -131,7 +131,7 @@ Failing Tests Programmatically
 
 You can fail any step by setting ``fail`` property on ``transaction`` object to ``true`` or any string with descriptive message.
 
-.. code:: ruby
+.. code-block:: ruby
 
    include DreddHooks::Methods
 
@@ -142,7 +142,7 @@ You can fail any step by setting ``fail`` property on ``transaction`` object to 
 Modifying Transaction Request Body Prior to Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: ruby
+.. code-block:: ruby
 
    require 'json'
    include DreddHooks::Methods
@@ -161,7 +161,7 @@ Modifying Transaction Request Body Prior to Execution
 Adding or Changing URI Query Parameters to All Requests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: ruby
+.. code-block:: ruby
 
    include DreddHooks::Methods
 
@@ -180,7 +180,7 @@ Adding or Changing URI Query Parameters to All Requests
 Handling sessions
 ~~~~~~~~~~~~~~~~~
 
-.. code:: ruby
+.. code-block:: ruby
 
    require 'json'
    include DreddHooks::Methods
@@ -203,7 +203,7 @@ Handling sessions
 Remove trailing newline character for in expected plain text bodies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: ruby
+.. code-block:: ruby
 
    include DreddHooks::Methods
 
