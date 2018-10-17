@@ -83,6 +83,8 @@ options (object)
 
 Because ``options.path`` array is required, you must specify options. You’ll end with errors otherwise.
 
+.. _optionspath-object:
+
 options.path (object)
 ^^^^^^^^^^^^^^^^^^^^^
 
