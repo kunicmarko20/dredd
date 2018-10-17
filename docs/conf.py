@@ -1,14 +1,11 @@
 import os
+import sys
 import re
 import json
 import subprocess
 import urllib.request
-from docutils import nodes
 
-from sphinx.util import console
 from sphinx.errors import SphinxError
-from recommonmark.parser import CommonMarkParser
-from recommonmark.transform import AutoStructify
 
 
 ###########################################################################
@@ -20,15 +17,25 @@ from recommonmark.transform import AutoStructify
 
 # -- Environment ----------------------------------------------------------
 
+# Explicitly put the extensions directory to Python path
+sys.path.append(os.path.abspath('extensions'))
+
+# Detect whether the build happens on ReadTheDocs
 IS_READTHEDOCS = os.environ.get('READTHEDOCS') == 'True'
 
+# Install all npm dependencies if on ReadTheDocs. This requires the latest
+# ReadTheDocs build image, which supports Node.js out of the box. This is
+# specified in the readthedocs.yml in the root of the project.
 if IS_READTHEDOCS:
     subprocess.check_call('npm install', cwd=project_dir, shell=True)
 
+# Specify paths
 docs_dir = os.path.dirname(__file__)
 project_dir = os.path.join(docs_dir, '..')
+extensions_dir = os.path.join(docs_dir, 'extensions')
 node_modules_bin_dir = os.path.join(project_dir, 'node_modules', '.bin')
 
+# Load package.json data
 with open(os.path.join(project_dir, 'package.json')) as f:
     package_json = json.load(f)
 
@@ -39,6 +46,7 @@ with open(os.path.join(project_dir, 'package.json')) as f:
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'cli_options',
     'pygments_markdown_lexer',
 ]
 
@@ -157,12 +165,6 @@ html_show_copyright = False
 linkcheck_ignore = [
     'https://crates.io/crates/dredd-hooks',  # https://github.com/sphinx-doc/sphinx/pull/5140
 ]
-
-
-# -- Custom Extensions ----------------------------------------------------
-
-def setup(app):
-    pass
 
 
 # -- Hacks ----------------------------------------------------------------
