@@ -1,9 +1,10 @@
 import os
 import json
-
+from textwrap import dedent
 from docutils import nodes
 from docutils.statemachine import ViewList
 
+from jinja2 import Template
 from sphinx.util.compat import Directive
 from sphinx.util.nodes import nested_parse_with_titles
 
@@ -20,24 +21,29 @@ class CLIOptionsDirective(Directive):
         with open(options_path) as f:
             options = json.load(f)
 
-        # Generate reStructuredText lines
-        lines = []
+        # Generate reStructuredText markup
+        rst = ''
         for name, attrs in sorted(options.items()):
-            ref = name
-            heading = f'.. option:: --{name}'
-            if 'alias' in attrs:
-                ref += f"-{attrs['alias']}"
-                heading += f", -{attrs['alias']}"
-            desc = f"   {attrs['description']}"
-            if 'default' in attrs:
-                value = attrs['default']
-                value = 'null' if value is None else str(value).lower()
-                desc += f' **Default value:** ``{value}``'
-            lines += ['', f'.. _{ref}:', '', heading, '', desc, '']
+            data = {
+                'name': name,
+                'alias': attrs.get('alias'),
+                'default': json.dumps(attrs['default']) if 'default' in attrs else None,
+                'description': attrs['description'],
+            }
+            template = Template(dedent('''
+                .. _{{ name }}{% if alias %}-{{ alias }}{% endif %}:
+
+                .. option:: --{{ name }}{% if alias %}, -{{ alias }}{% endif %}
+
+                    {{ description }}
+                    {% if default %}**Default value:** ``{{ default }}``{% endif %}
+
+            '''))
+            rst += template.render(**data)
 
         # Generate docutils nodes
         result = ViewList()
-        for line in lines:
+        for line in rst.splitlines():
             result.append(line, f'<cli-options-directive>')
         node = nodes.section(document=self.state.document)
         nested_parse_with_titles(self.state, result, node)
