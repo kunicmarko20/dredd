@@ -529,24 +529,20 @@ Most of the authentication schemes use HTTP header for carrying the authenticati
 Sending Multipart Requests
 --------------------------
 
-.. code-block:: apiblueprint
+.. literalinclude:: ../test/fixtures/request/multipart-form-data.apib
+  :language: apiblueprint
 
-   :[API Blueprint example](../test/fixtures/request/multipart-form-data.apib)
-
-.. code-block:: yaml
-
-   :[Swagger example](../test/fixtures/request/multipart-form-data.yaml)
+.. literalinclude:: ../test/fixtures/request/multipart-form-data.yaml
+  :language: yaml
 
 Sending Form Data
 -----------------
 
-.. code-block:: apiblueprint
+.. literalinclude:: ../test/fixtures/request/application-x-www-form-urlencoded.apib
+  :language: apiblueprint
 
-   :[API Blueprint example](../test/fixtures/request/application-x-www-form-urlencoded.apib)
-
-.. code-block:: yaml
-
-   :[Swagger example](../test/fixtures/request/application-x-www-form-urlencoded.yaml)
+.. literalinclude:: ../test/fixtures/request/application-x-www-form-urlencoded.yaml
+  :language: yaml
 
 Working with Images and other Binary Bodies
 -------------------------------------------
@@ -559,25 +555,22 @@ Binary Request Body
 API Blueprint
 ^^^^^^^^^^^^^
 
-.. code-block:: apiblueprint
-
-   :[API Blueprint example](../test/fixtures/request/image-png.apib)
+.. literalinclude:: ../test/fixtures/request/image-png.apib
+  :language: apiblueprint
 
 Swagger
 ^^^^^^^
 
-.. code-block:: yaml
-
-   :[Swagger example](../test/fixtures/request/image-png.yaml)
+.. literalinclude:: ../test/fixtures/request/image-png.yaml
+  :language: yaml
 
 Hooks
 ^^^^^
 
 In hooks, you can populate the request body with real binary data. The data must be in a form of a `Base64-encoded <https://en.wikipedia.org/wiki/Base64>`__ string.
 
-.. code-block:: javascript
-
-   :[Hooks example](../test/fixtures/request/image-png-hooks.js)
+.. literalinclude:: ../test/fixtures/request/image-png-hooks.js
+  :language: javascript
 
 Binary Response Body
 ~~~~~~~~~~~~~~~~~~~~
@@ -585,16 +578,14 @@ Binary Response Body
 API Blueprint
 ^^^^^^^^^^^^^
 
-.. code-block:: apiblueprint
-
-   :[API Blueprint example](../test/fixtures/response/binary.apib)
+.. literalinclude:: ../test/fixtures/response/binary.apib
+  :language: apiblueprint
 
 Swagger
 ^^^^^^^
 
-.. code-block:: yaml
-
-   :[Swagger example](../test/fixtures/response/binary.yaml)
+.. literalinclude:: ../test/fixtures/response/binary.yaml
+  :language: yaml
 
 ..
 
@@ -605,15 +596,13 @@ Hooks
 
 In hooks, you can either assert the body:
 
-.. code-block:: javascript
-
-   :[Hooks example](../test/fixtures/response/binary-assert-body-hooks.js)
+.. literalinclude:: ../test/fixtures/response/binary-assert-body-hooks.js
+  :language: javascript
 
 Or you can ignore it:
 
-.. code-block:: javascript
-
-   :[Hooks example](../test/fixtures/response/binary-ignore-body-hooks.js)
+.. literalinclude:: ../test/fixtures/response/binary-ignore-body-hooks.js
+  :language: javascript
 
 Multiple Requests and Responses
 -------------------------------
