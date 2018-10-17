@@ -37,23 +37,15 @@ Sandboxed JavaScript Hooks API reference
 
 The Sandbox mode can be used for running untrusted hook code. It can be activated with a CLI switch or with the JS API. In each hook file you can use following functions:
 
-``beforeAll(function)``
-
-``beforeEach(function)``
-
-``before(transactionName, function)``
-
-``beforeEachValidation(function)``
-
-``beforeValidation(transactionName, function)``
-
-``after(transactionName, function)``
-
-``afterEach(function)``
-
-``afterAll(function)``
-
-``log(string)``
+.. js:function:: beforeAll(function)
+.. js:function:: beforeEach(function)
+.. js:function:: before(transactionName, function)
+.. js:function:: beforeEachValidation(function)
+.. js:function:: beforeValidation(transactionName, function)
+.. js:function:: after(transactionName, function)
+.. js:function:: afterEach(function)
+.. js:function:: afterAll(function)
+.. js:function:: log(string)
 
 -  A :ref:`Transaction Object <transaction>` is passed as a first argument to the hook function for ``before``, ``after``, ``beforeEach``, ``afterEach``, ``beforeValidation`` and ``beforeEachValidation``.
 -  An array of Transaction Objects is passed to ``beforeAll`` and ``afterAll``.

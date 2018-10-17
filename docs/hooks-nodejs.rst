@@ -210,7 +210,10 @@ Modifying Transaction Request Body Prior to Execution
 Modifying Multipart Transaction Request Body Prior to Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Dependencies: - `multi-part <https://www.npmjs.com/package/multi-part>`__ - `stream-to-string <https://www.npmjs.com/package/stream-to-string>`__
+Dependencies:
+
+- `multi-part <https://www.npmjs.com/package/multi-part>`__
+- `stream-to-string <https://www.npmjs.com/package/stream-to-string>`__
 
 .. code-block:: javascript
 

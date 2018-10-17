@@ -84,9 +84,9 @@ Response Headers Expectations
 -  Only values of headers significant for content negotiation are validated.
 -  All other headers values can differ.
 
-When using `Swagger <https://swagger.io/>`__, headers are taken from ```response.headers`` <https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#user-content-responseHeaders>`__. HTTP headers significant for content negotiation are inferred according to following rules:
+When using `Swagger <https://swagger.io/>`__, headers are taken from ``response.headers`` (`docs <https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#user-content-responseHeaders>`__). HTTP headers significant for content negotiation are inferred according to following rules:
 
--  ```produces`` <https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#user-content-swaggerProduces>`__ is propagated as response’s ``Content-Type`` header.
+-  ``produces`` (`docs <https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#user-content-swaggerProduces>`__) is propagated as response’s ``Content-Type`` header.
 -  Response’s ``Content-Type`` header overrides any ``produces``.
 
 Response Body Expectations
