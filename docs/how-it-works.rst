@@ -143,7 +143,8 @@ Both `API Blueprint <https://apiblueprint.org/>`__ and `Swagger <https://swagger
 
 If Dredd isn’t able to infer any value for a required parameter, it will terminate the test run and complain that the parameter is *ambiguous*.
 
-   **Note:** The implementation of API Blueprint’s request-specific parameters is still in progress and there’s only experimental support for it in Dredd as of now.
+.. note::
+   The implementation of API Blueprint’s request-specific parameters is still in progress and there’s only experimental support for it in Dredd as of now.
 
 Request Headers
 ~~~~~~~~~~~~~~~
@@ -154,9 +155,8 @@ In `Swagger <https://swagger.io/>`__ documents, HTTP headers are inferred from `
 -  ``produces`` (`docs <https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#user-content-swaggerProduces>`__) is propagated as request’s ``Accept`` header.
 -  If request body parameters are specified as ``"in": "formData"``, request’s ``Content-Type`` header is set to ``application/x-www-form-urlencoded``.
 
-..
-
-   **Note:** Processing ``"in": "header"`` parameters and inferring ``application/x-www-form-urlencoded`` from ``"in": "formData"`` parameters is not implemented yet (`apiaryio/fury-adapter-swagger#68 <https://github.com/apiaryio/fury-adapter-swagger/issues/68>`__, `apiaryio/fury-adapter-swagger#67 <https://github.com/apiaryio/fury-adapter-swagger/issues/67>`__).
+.. note::
+   Processing ``"in": "header"`` parameters and inferring ``application/x-www-form-urlencoded`` from ``"in": "formData"`` parameters is not implemented yet (`apiaryio/fury-adapter-swagger#68 <https://github.com/apiaryio/fury-adapter-swagger/issues/68>`__, `apiaryio/fury-adapter-swagger#67 <https://github.com/apiaryio/fury-adapter-swagger/issues/67>`__).
 
 Request Body
 ~~~~~~~~~~~~
@@ -216,7 +216,8 @@ While `API Blueprint <https://apiblueprint.org/>`__ allows specifying multiple r
 
 In other words, Dredd always selects just the first response for each request.
 
-   **Note:** Improving the support for multiple requests and responses is under development. Refer to issues `#25 <https://github.com/apiaryio/dredd/issues/25>`__ and `#78 <https://github.com/apiaryio/dredd/issues/78>`__ for details. Support for URI parameters specific to a single request within one action is also limited. Solving `#227 <https://github.com/apiaryio/dredd/issues/227>`__ should unblock many related problems. Also see `Multiple Requests and Responses <how-to-guides.md#multiple-requests-and-responses>`__ guide for workarounds.
+.. note::
+   Improving the support for multiple requests and responses is under development. Refer to issues `#25 <https://github.com/apiaryio/dredd/issues/25>`__ and `#78 <https://github.com/apiaryio/dredd/issues/78>`__ for details. Support for URI parameters specific to a single request within one action is also limited. Solving `#227 <https://github.com/apiaryio/dredd/issues/227>`__ should unblock many related problems. Also see `Multiple Requests and Responses <how-to-guides.md#multiple-requests-and-responses>`__ guide for workarounds.
 
 Swagger
 ~~~~~~~
