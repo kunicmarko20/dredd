@@ -12,7 +12,7 @@ const logger = require('./logger');
 const Runner = require('./transaction-runner');
 const { applyConfiguration } = require('./configuration');
 
-const options = require('./options');
+const options = require('./options.json');
 
 const PROXY_ENV_VARIABLES = ['HTTP_PROXY', 'HTTPS_PROXY', 'NO_PROXY'];
 const FILE_DOWNLOAD_TIMEOUT = 5000;
