@@ -23,17 +23,16 @@ sys.path.append(os.path.abspath('extensions'))
 # Detect whether the build happens on ReadTheDocs
 IS_READTHEDOCS = os.environ.get('READTHEDOCS') == 'True'
 
+# Specify paths
+docs_dir = os.path.dirname(__file__)
+project_dir = os.path.join(docs_dir, '..')
+node_modules_bin_dir = os.path.join(project_dir, 'node_modules', '.bin')
+
 # Install all npm dependencies if on ReadTheDocs. This requires the latest
 # ReadTheDocs build image, which supports Node.js out of the box. This is
 # specified in the readthedocs.yml in the root of the project.
 if IS_READTHEDOCS:
     subprocess.check_call('npm install', cwd=project_dir, shell=True)
-
-# Specify paths
-docs_dir = os.path.dirname(__file__)
-project_dir = os.path.join(docs_dir, '..')
-extensions_dir = os.path.join(docs_dir, 'extensions')
-node_modules_bin_dir = os.path.join(project_dir, 'node_modules', '.bin')
 
 # Load package.json data
 with open(os.path.join(project_dir, 'package.json')) as f:
