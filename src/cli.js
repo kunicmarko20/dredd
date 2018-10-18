@@ -2,7 +2,6 @@ const console = require('console'); // Stubbed in tests by proxyquire
 const fs = require('fs');
 const optimist = require('optimist');
 const os = require('os');
-const clone = require('clone');
 const spawnArgs = require('spawn-args');
 const spawnSync = require('cross-spawn').sync;
 
